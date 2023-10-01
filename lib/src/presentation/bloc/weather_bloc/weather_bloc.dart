@@ -10,6 +10,7 @@ part 'weather_state.dart';
 class WeatherBloc extends Bloc<WeatherEvent, WeatherState> {
   WeatherBloc() : super(WeatherInitial()) {
     on<GetWeaterEvent>((event, emit) async {
+      emit(WeatherLoading());
       try {
         WeatherModel weather = await WeatherApi().getWeather(city: event.city);
         The5DayWeatherModel the5dayWeatherModel = await WeatherApi()
