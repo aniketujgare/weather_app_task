@@ -153,6 +153,16 @@ class HomeView extends StatelessWidget {
               );
             },
           );
+        } else if (state is WeatherErrorState) {
+          return const Text(
+            'Please choose another location',
+            style: TextStyle(
+              height: 0.9,
+              color: Colors.white,
+              fontSize: 20,
+              fontWeight: FontWeight.bold,
+            ),
+          );
         } else {
           return const Center(child: CircularProgressIndicator());
         }
