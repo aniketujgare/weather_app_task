@@ -20,64 +20,71 @@ class HomeView extends StatelessWidget {
     String cityName = ''; // Store the entered city name here
 
     return Scaffold(
-      // extendBody: true,
       body: SingleChildScrollView(
-        child: Column(
-          children: [
-            Container(
-              padding: const EdgeInsets.only(top: 40),
-              height: height * 0.8,
-              width: double.maxFinite,
-              decoration: const BoxDecoration(
-                borderRadius: BorderRadius.only(
-                  bottomLeft: Radius.circular(50),
-                  bottomRight: Radius.circular(50),
+        child: BlocListener<WeatherBloc, WeatherState>(
+          listener: (context, state) {
+            if (state is WeatherErrorState) {
+              ScaffoldMessenger.of(context)
+                  .showSnackBar(SnackBar(content: Text(state.error)));
+            }
+          },
+          child: Column(
+            children: [
+              Container(
+                padding: const EdgeInsets.only(top: 40),
+                height: height * 0.8,
+                width: double.maxFinite,
+                decoration: const BoxDecoration(
+                  borderRadius: BorderRadius.only(
+                    bottomLeft: Radius.circular(50),
+                    bottomRight: Radius.circular(50),
+                  ),
+                  gradient: LinearGradient(
+                    begin: Alignment.topCenter,
+                    end: Alignment.bottomCenter,
+                    stops: [0.4, 0.9],
+                    colors: [
+                      Color(0XFF13B9FA),
+                      Color(0XFF1266F3),
+                    ],
+                  ),
                 ),
-                gradient: LinearGradient(
-                  begin: Alignment.topCenter,
-                  end: Alignment.bottomCenter,
-                  stops: [0.4, 0.9],
-                  colors: [
-                    Color(0XFF13B9FA),
-                    Color(0XFF1266F3),
+                child: Column(
+                  children: [
+                    //Search
+                    TextField(
+                      onChanged: (value) {
+                        cityName = value; // Update cityName when text changes
+                      },
+                      onSubmitted: (value) {
+                        context
+                            .read<WeatherBloc>()
+                            .add(GetWeaterEvent(city: cityName));
+                      },
+                      decoration: const InputDecoration(
+                          hintText: 'City Name',
+                          border: OutlineInputBorder(
+                              borderSide: BorderSide(color: Colors.red))),
+                    ),
+                    buildDegreeIcon(),
+                    weaherImage(),
+                    buildTemperature(),
+                    buildWeatherCondition(),
+                    buildDate(),
+                    // const SizedBox(height: 15),
+                    Divider(
+                      color: Colors.white.withOpacity(0.2),
+                      indent: 25,
+                      endIndent: 25,
+                    ),
+                    const SizedBox(height: 15),
+                    buildExtraWeatherDetails(),
                   ],
                 ),
               ),
-              child: Column(
-                children: [
-                  //Search
-                  TextField(
-                    onChanged: (value) {
-                      cityName = value; // Update cityName when text changes
-                    },
-                    onSubmitted: (value) {
-                      context
-                          .read<WeatherBloc>()
-                          .add(GetWeaterEvent(city: cityName));
-                    },
-                    decoration: const InputDecoration(
-                        hintText: 'City Name',
-                        border: OutlineInputBorder(
-                            borderSide: BorderSide(color: Colors.red))),
-                  ),
-                  buildDegreeIcon(),
-                  weaherImage(),
-                  buildTemperature(),
-                  buildWeatherCondition(),
-                  buildDate(),
-                  // const SizedBox(height: 15),
-                  Divider(
-                    color: Colors.white.withOpacity(0.2),
-                    indent: 25,
-                    endIndent: 25,
-                  ),
-                  const SizedBox(height: 15),
-                  buildExtraWeatherDetails(),
-                ],
-              ),
-            ),
-            WeatherForecast(width: width),
-          ],
+              WeatherForecast(width: width),
+            ],
+          ),
         ),
       ),
     );

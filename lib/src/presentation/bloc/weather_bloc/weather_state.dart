@@ -13,3 +13,9 @@ final class WeatherLoaded extends WeatherState {
 
   WeatherLoaded({required this.weather, required this.the5Dayweather});
 }
+
+final class WeatherErrorState extends WeatherState {
+  final String error;
+
+  WeatherErrorState({required this.error});
+}
