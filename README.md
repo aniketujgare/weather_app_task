@@ -13,6 +13,10 @@ Submission of the assignment to the WebArchitech.
 # Description
 A Weather application 
 
+
+https://github.com/aniketujgare/weather_app_task/assets/13385338/ed560062-859d-4538-a788-7b73ea7780e6
+
+
 A weather application provides users with up-to-date information about current weather conditions and forecasts for a specific location or multiple locations. Users can typically check details such as temperature, humidity, wind speed.
 
 ## Tech Stack
