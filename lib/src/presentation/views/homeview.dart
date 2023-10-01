@@ -138,15 +138,17 @@ class HomeView extends StatelessWidget {
           return BlocBuilder<SettingsBloc, SettingsState>(
             builder: (context, settinsState) {
               var isCelcius = settinsState.isCelsius;
-              return Text(
-                isCelcius
-                    ? '${kFtoDegreeCelsius(state.weather.main.temp)}'
-                    : '${state.weather.main.temp.toInt()}',
-                style: const TextStyle(
-                  height: 0.9,
-                  color: Colors.white,
-                  fontSize: 150,
-                  fontWeight: FontWeight.bold,
+              return FittedBox(
+                child: Text(
+                  isCelcius
+                      ? '${kFtoDegreeCelsius(state.weather.main.temp)}'
+                      : '${state.weather.main.temp.toInt()}',
+                  style: const TextStyle(
+                    height: 0.9,
+                    color: Colors.white,
+                    fontSize: 135,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
               );
             },
@@ -160,7 +162,7 @@ class HomeView extends StatelessWidget {
 
   SizedBox weaherImage() {
     return SizedBox(
-      height: 200,
+      height: 180,
       width: 200,
       child: Image.network(
           'https://static.vecteezy.com/system/resources/previews/008/854/781/original/lightning-strike-thunderstorm-weather-icon-meteorological-sign-3d-render-png.png',
